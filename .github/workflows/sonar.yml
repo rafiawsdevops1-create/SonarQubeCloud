@@ -1,0 +1,39 @@
+name: CI with SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonar_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # Deep clone is necessary for SonarQube to calculate new code accurately
+          fetch-depth: 0 
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build and Analyze with SonarScanner for Maven
+        env:
+          # Set up your SonarQube/SonarCloud server URL
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} 
+          # Use your generated token, stored securely as a GitHub Secret
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+        run: |
+          # The sonar:sonar goal runs the analysis. 
+          # We use -B for non-interactive mode.
+          # The project properties can be passed via -D flags
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=my-org_simple-sonar-project \
+            -Dsonar.organization=my-organization-key
