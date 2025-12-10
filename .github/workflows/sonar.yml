@@ -35,5 +35,5 @@ jobs:
           # We use -B for non-interactive mode.
           # The project properties can be passed via -D flags
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.projectKey=my-org_simple-sonar-project \
-            -Dsonar.organization=my-organization-key
+            -Dsonar.projectKey=SonarQubeOrganization \
+            -Dsonar.organization=sonarqubeorganization-1
