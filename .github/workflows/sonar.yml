@@ -3,7 +3,7 @@ name: CI with SonarQube Analysis
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -37,3 +37,4 @@ jobs:
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.5.0.6356:sonar \
             -Dsonar.projectKey=SonarQubeOrganization \
             -Dsonar.organization=sonarqubeorganization-1
+            -Dsonar.branch.name=main
