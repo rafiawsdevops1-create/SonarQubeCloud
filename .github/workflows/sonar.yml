@@ -34,7 +34,7 @@ jobs:
           # The sonar:sonar goal runs the analysis. 
           # We use -B for non-interactive mode.
           # The project properties can be passed via -D flags
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.5.0.6356:sonar \
+          mvn -B verify sonar:sonar org.sonarsource.scanner.maven:sonar-maven-plugin:5.5.0.6356:sonar \
             -Dsonar.projectKey=SonarQubeOrganization \
             -Dsonar.organization=sonarqubeorganization-1
           
